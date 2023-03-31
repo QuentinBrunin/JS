@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calcul IMC</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="lato">
+    <div class="flex flex-col bg-gray-200 rounded-xl lg:max-w-2xl items-center mx-auto p-6">
+      <div>
+        <h3 class="text-center pb-6">Calcul <strong>d'IMC</strong></h3>
+
+        <form class="flex flex-col" method="GET" onsubmit="event.preventDefault();">
+              <div class="flex">
+                <div>
+                  <label for="taille">Votre taille en centimêtre Ex: 180</label>
+                  <input class="w-64 mt-1 rounded-xl shadow-md" id="taille" type="number" placeholder="Votre taille en centimetre">
+                </div>
+                <div>
+                  <label for="poids">Votre poids en Kg Ex: 100 </label>
+                  <input class="w-52 mt-1 rounded-xl shadow-md" id="poids" type="number" placeholder="Votre poids en kg">
+                </div>
+              </div>
+              <button id="calculer" onclick="resultat()" class="rounded-xl bg-yellow-400 my-6 py-1 px-4 font-bold w-40 mx-auto shadow-md"> Calculer un IMC </button>
+        </form>
+      </div>
+      <p id="imc">0</p>
+      <p id="out">En attente du résultat</p>
+    </div>
+      
+    <script>
+     
+      let calculer = document.getElementById('calculer');
+      
+      function resultat() {
+        let taille = document.getElementById('taille').value;
+        let poids = document.getElementById('poids').value;
+        let conversion = taille / 100
+        let calcul = poids / (conversion ** 2);
+        
+        if (calcul < 18.5 ) {
+          document.getElementById("out").innerHTML = "Trop maîgre";
+          out.style.color ="midnightblue";
+        } else if (calcul >= 18.5 && calcul < 25) {
+          document.getElementById("out").innerHTML = "Corpulence Normale";
+          out.style.color ="green";
+        } else if (calcul >= 25 && calcul < 30) {
+          document.getElementById("out").innerHTML = "Surpoids";
+          out.style.color ="lightcoral";
+        } else if (calcul >= 30 && calcul < 35) {
+          document.getElementById("out").innerHTML = "Obésité sévère";
+          out.style.color ="orange";
+        } else if (calcul > 40 ) {
+          document.getElementById("out").innerHTML = "Obésité morbide";
+          out.style.color = 'red';
+        }
+        document.getElementById("imc").innerHTML = Math.floor(calcul);
+        console.log(calcul);
+
+        if (taille != typeof 'number' || poids != typeof 'number'){
+          document.getElementById("out").innerHTML = "Veuillez rentrer un nombre";
+        }
+
+      }
+      
+   
+
+
+   
+    </script>
+  </body>
+</html>
